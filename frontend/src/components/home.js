@@ -1,6 +1,7 @@
-import { useContext } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { ThemeContext } from "../App";
+import { getRisk } from "../api";
 
 /* ─── Theme (static, no switching) ───────────────── */
 const THEMES = {
@@ -92,6 +93,15 @@ const DASHBOARD_DATA = {
 export default function ClimateaiHome() {
     const { themeKey } = useContext(ThemeContext);
     const navigate = useNavigate();
+    const [data, setData] = useState(null);
+
+    useEffect(() => {
+      const fetchData = async () => {
+        const res = await getRisk();
+        setData(res);
+      };
+      fetchData();
+    }, []);
 
     const T = THEMES[themeKey] || THEMES.blue;
     const panelButtonStyle = {
@@ -176,9 +186,19 @@ export default function ClimateaiHome() {
                                         color: T.muted,
                                         fontSize: "1rem",
                                     }}>
-                                        {DASHBOARD_DATA.currentLocation}
+                                        {data ? data.location : "Loading..."}
                                     </p>
                                 </div>
+
+                                <p style={{
+                                    color: T.muted,
+                                    marginTop: 14,
+                                    fontSize: "1rem",
+                                }}>
+                                    {data?.level === "HIGH" && "⚠️ High flood risk!"}
+                                    {data?.level === "MEDIUM" && "🌧️ Moderate risk"}
+                                    {data?.level === "SAFE" && "✅ Safe"}
+                                </p>
 
                                 <p style={{
                                     color: T.muted,
@@ -208,7 +228,7 @@ export default function ClimateaiHome() {
                                         AQI
                                     </h2>
                                     <p style={{ color: T.muted }}>
-                                        Air Quality Index: {DASHBOARD_DATA.aqi}
+                                        Air Quality Index: {data ? data.aqi : "--"}
                                     </p>
                                 </button>
 

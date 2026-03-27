@@ -1,6 +1,28 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .models import User
+import random
+
+@api_view(['GET'])
+def risk(request):
+    rainfall = random.randint(0, 200)
+    aqi = random.randint(0, 300)
+
+    risk_score = (rainfall * 0.6) + (aqi * 0.4)
+
+    level = "SAFE"
+    if risk_score > 70:
+        level = "HIGH"
+    elif risk_score > 30:
+        level = "MEDIUM"
+
+    return Response({
+        "location": "Kochi",
+        "aqi": aqi,
+        "rainfall": rainfall,
+        "risk_score": int(risk_score),
+        "level": level
+    })
 
 @api_view(['POST'])
 def register(request):
