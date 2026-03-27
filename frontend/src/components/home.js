@@ -212,11 +212,7 @@ export default function ClimateaiHome() {
                                     </p>
                                 </button>
 
-                                <button
-                                    className="feat-card"
-                                    onClick={() => navigate("/alert")}
-                                    style={panelButtonStyle}
-                                >
+                                <div style={panelButtonStyle}>
                                     <h2 style={{
                                         fontFamily: "'DM Serif Display', serif",
                                         color: T.primary,
@@ -225,10 +221,26 @@ export default function ClimateaiHome() {
                                     }}>
                                         Alert
                                     </h2>
-                                    <p style={{ color: T.muted }}>
+                                    <p
+                                        role="button"
+                                        tabIndex={0}
+                                        onClick={() => navigate("/alert")}
+                                        onKeyDown={(e) => {
+                                            if (e.key === "Enter" || e.key === " ") {
+                                                e.preventDefault();
+                                                navigate("/alert");
+                                            }
+                                        }}
+                                        style={{
+                                            color: T.muted,
+                                            cursor: "pointer",
+                                            textDecoration: "underline",
+                                            textUnderlineOffset: 3,
+                                        }}
+                                    >
                                         {DASHBOARD_DATA.alertMessage}
                                     </p>
-                                </button>
+                                </div>
 
                                 <button
                                     className="feat-card"
