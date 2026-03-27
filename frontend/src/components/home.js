@@ -1,4 +1,4 @@
-import { useState,useContext } from "react";
+import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { ThemeContext } from "../App";
 
@@ -80,33 +80,13 @@ function Navbar({ T }) {
     );
 }
 
-/* ─── Features ───────────────── */
-const FEATURES = [
-    {
-        key: "location",
-        label: "Current Location",
-        route: "/location",
-        desc: "View your real-time geographic location",
-    },
-    {
-        key: "aqi",
-        label: "AQI",
-        route: "/aqi",
-        desc: "Check air quality index in your area",
-    },
-    {
-        key: "warning",
-        label: "Warning",
-        route: "/warning",
-        desc: "Environmental risk warnings",
-    },
-    {
-        key: "alert",
-        label: "Alert",
-        route: "/alert",
-        desc: "Real-time hazard alerts",
-    },
-];
+/* ─── Dashboard Placeholders (backend integrated later) ───────────────── */
+const DASHBOARD_DATA = {
+    currentLocation: "Fetching location...",
+    aqi: "--",
+    alertMessage: "No active alerts right now",
+    warningMessage: "Tap to view environmental warnings",
+};
 
 /* ─── Home Page ───────────────── */
 export default function ClimateaiHome() {
@@ -114,6 +94,16 @@ export default function ClimateaiHome() {
     const navigate = useNavigate();
 
     const T = THEMES[themeKey] || THEMES.blue;
+    const panelButtonStyle = {
+        width: "100%",
+        textAlign: "left",
+        background: T.surface,
+        border: `1px solid ${T.subtle}`,
+        borderRadius: 16,
+        padding: "18px 16px",
+        cursor: "pointer",
+        boxShadow: "0 4px 20px rgba(0,0,0,.05)",
+    };
 
     return (
         <>
@@ -140,38 +130,124 @@ export default function ClimateaiHome() {
                             Your Environmental Dashboard
                         </h1>
 
-                        {/* Cards */}
+                        {/* Dashboard panels */}
                         <div style={{
                             display: "grid",
-                            gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
+                            gridTemplateColumns: "minmax(300px, 2fr) minmax(220px, 1fr)",
                             gap: 25,
+                            alignItems: "stretch",
                         }}>
-                            {FEATURES.map((feat) => (
-                                <div
-                                    key={feat.key}
+                            <div
+                                className="feat-card"
+                                onClick={() => navigate("/location")}
+                                style={{
+                                    background: T.surface,
+                                    padding: 30,
+                                    borderRadius: 18,
+                                    border: `1px solid ${T.subtle}`,
+                                    boxShadow: "0 4px 20px rgba(0,0,0,.05)",
+                                    minHeight: 360,
+                                    display: "flex",
+                                    flexDirection: "column",
+                                    justifyContent: "space-between",
+                                }}
+                            >
+                                <h2 style={{
+                                    fontFamily: "'DM Serif Display', serif",
+                                    color: T.primary,
+                                    marginBottom: 10,
+                                }}>
+                                    Current Location
+                                </h2>
+
+                                <div style={{
+                                    flex: 1,
+                                    display: "flex",
+                                    alignItems: "center",
+                                    justifyContent: "center",
+                                    marginTop: 12,
+                                    borderRadius: 14,
+                                    border: `1px dashed ${T.subtle}`,
+                                    background: T.card,
+                                    padding: 20,
+                                    textAlign: "center",
+                                }}>
+                                    <p style={{
+                                        color: T.muted,
+                                        fontSize: "1rem",
+                                    }}>
+                                        {DASHBOARD_DATA.currentLocation}
+                                    </p>
+                                </div>
+
+                                <p style={{
+                                    color: T.muted,
+                                    marginTop: 14,
+                                    fontSize: "0.9rem",
+                                }}>
+                                    Location will be shown here after backend integration.
+                                </p>
+                            </div>
+
+                            <div style={{
+                                display: "flex",
+                                flexDirection: "column",
+                                gap: 14,
+                            }}>
+                                <button
                                     className="feat-card"
-                                    onClick={() => navigate(feat.route)}
-                                    style={{
-                                        background: T.surface,
-                                        padding: 30,
-                                        borderRadius: 18,
-                                        border: `1px solid ${T.subtle}`,
-                                        boxShadow: "0 4px 20px rgba(0,0,0,.05)",
-                                    }}
+                                    onClick={() => navigate("/aqi")}
+                                    style={panelButtonStyle}
                                 >
                                     <h2 style={{
                                         fontFamily: "'DM Serif Display', serif",
                                         color: T.primary,
-                                        marginBottom: 10,
+                                        marginBottom: 6,
+                                        fontSize: "1.2rem",
                                     }}>
-                                        {feat.label}
+                                        AQI
                                     </h2>
-
                                     <p style={{ color: T.muted }}>
-                                        {feat.desc}
+                                        Air Quality Index: {DASHBOARD_DATA.aqi}
                                     </p>
-                                </div>
-                            ))}
+                                </button>
+
+                                <button
+                                    className="feat-card"
+                                    onClick={() => navigate("/alert")}
+                                    style={panelButtonStyle}
+                                >
+                                    <h2 style={{
+                                        fontFamily: "'DM Serif Display', serif",
+                                        color: T.primary,
+                                        marginBottom: 6,
+                                        fontSize: "1.2rem",
+                                    }}>
+                                        Alert
+                                    </h2>
+                                    <p style={{ color: T.muted }}>
+                                        {DASHBOARD_DATA.alertMessage}
+                                    </p>
+                                </button>
+
+                                <button
+                                    className="feat-card"
+                                    onClick={() => navigate("/warning")}
+                                    style={panelButtonStyle}
+                                >
+                                    <h2 style={{
+                                        fontFamily: "'DM Serif Display', serif",
+                                        color: T.primary,
+                                        marginBottom: 6,
+                                        fontSize: "1.2rem",
+                                    }}>
+                                        Warnings
+                                    </h2>
+                                    <p style={{ color: T.muted }}>
+                                        {DASHBOARD_DATA.warningMessage}
+                                    </p>
+                                </button>
+                            </div>
                         </div>
 
                     </div>
