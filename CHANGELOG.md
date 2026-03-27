@@ -42,3 +42,18 @@
 
 ### Issues Faced
 - Backend integration for live location, AQI, and warnings is pending, so placeholder values are used for now
+
+## 23:52
+
+### Features Added
+- Wired the `/alert` route to the Alert screen component
+- Updated the home dashboard so clicking the **alert message** text navigates to the Alert page (keyboard-accessible: Enter/Space on the message)
+
+### Files Modified
+- frontend/src/App.js
+- frontend/src/components/home.js
+- frontend/src/components/alert.js
+- CHANGELOG.md
+
+### Issues Faced
+- None
