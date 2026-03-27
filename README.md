@@ -23,16 +23,17 @@ A **16-hour hackathon** across various domains where innovation meets execution.
 
 ```md
 ### 🏷️ Project Name:
-<Your Project Name>
+Evacuaid
 
 ### 🎯 Chosen Domain:
-<One from the given domains>
+Climate Intelligence & Environmental Monitoring
 
 ### ❗ Problem Statement:
-<What problem are you solving?>
+Localized Risk Awareness from Environmental Data
+Environmental conditions are becoming increasingly unpredictable, with localized impacts that are difficult to anticipate using conventional approaches.
 
 ### 💡 Solution:
-<How does your project solve the problem?>
+EvacuAid is a privacy-focused disaster assistance system that helps users quickly find the nearest low-risk safe location during emergencies. By using user-shared location data, the system analyzes nearby safe zones and recommends the safest and closest option. It ensures fast decision-making while maintaining user privacy by avoiding continuous tracking.
 ```
 
 ---
