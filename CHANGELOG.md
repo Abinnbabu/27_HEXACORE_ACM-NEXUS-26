@@ -28,3 +28,17 @@
 
 ### Issues Faced
 - Initial remote image download attempt failed, resolved by using provided local files
+
+## 22:53
+
+### Features Added
+- Redesigned the home dashboard layout to match the new sketch-style UI flow
+- Added a dedicated "Current Location" display section with backend-ready placeholder content
+- Updated right-side action panel to include `AQI`, `Alert`, and `Warnings` button cards with placeholder data/messages
+
+### Files Modified
+- frontend/src/components/home.js
+- CHANGELOG.md
+
+### Issues Faced
+- Backend integration for live location, AQI, and warnings is pending, so placeholder values are used for now
