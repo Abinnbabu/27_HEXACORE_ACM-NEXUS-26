@@ -17,6 +17,6 @@ export const register = async (fullName, email, password) => {
 };
 
 export const getRisk = async () => {
-  const res = await fetch("http://127.0.0.1:8000/api/risk/");
+  const res = await fetch("/api/risk/");
   return res.json();
 };
