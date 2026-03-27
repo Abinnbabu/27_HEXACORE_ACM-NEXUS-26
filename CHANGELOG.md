@@ -1,59 +1,66 @@
 ## 09:00
 
-### Features Added
-- Initialized project structure
-- Added `AGENTS.md` with hackathon workflow rules
-- Created `CHANGELOG.md` with predefined format
+### 🚀 Features Added
+- Initialized project structure for frontend and backend
+- Added `AGENTS.md` with defined hackathon workflow guidelines
+- Created `CHANGELOG.md` with structured logging format
 
-### Files Modified
-- AGENTS.md
-- CHANGELOG.md
-- README.md
+### 📁 Files Modified
+- AGENTS.md  
+- CHANGELOG.md  
+- README.md  
 
-### Issues Faced
-- None
+### ⚠️ Issues Faced
+- None  
+
 
 ## 12:47
 
-### Features Added
-- Added local template image assets (template_acm.png, template_clique.png)
-- Refactored AGENTS.md, README.md, and CHANGELOG.md to use 24-hour time format (HH:MM) instead of "Hour X"
+### 🚀 Features Added
+- Integrated local template assets (`template_acm.png`, `template_clique.png`)
+- Standardized time format across documentation to 24-hour format (HH:MM)
 
-### Files Modified
-- AGENTS.md
-- CHANGELOG.md
-- README.md
-- template_acm.png
-- template_clique.png
+### 📁 Files Modified
+- AGENTS.md  
+- CHANGELOG.md  
+- README.md  
+- template_acm.png  
+- template_clique.png  
 
-### Issues Faced
-- Initial remote image download attempt failed, resolved by using provided local files
+### ⚠️ Issues Faced
+- Remote asset loading failed → resolved by switching to local assets  
 
-## 22:53
 
-### Features Added
-- Redesigned the home dashboard layout to match the new sketch-style UI flow
-- Added a dedicated "Current Location" display section with backend-ready placeholder content
-- Updated right-side action panel to include `AQI`, `Alert`, and `Warnings` button cards with placeholder data/messages
+## 12:55
 
-### Files Modified
-- frontend/src/components/home.js
-- CHANGELOG.md
+### 🚀 Features Added
+- Integrated Django REST Framework for API development
+- Enabled `rest_framework` in project settings
 
-### Issues Faced
-- Backend integration for live location, AQI, and warnings is pending, so placeholder values are used for now
+### 📁 Files Modified
+- backend/project/project/settings.py  
 
-## 23:52
+### ⚠️ Issues Faced
+- None  
 
-### Features Added
-- Wired the `/alert` route to the Alert screen component
-- Updated the home dashboard so clicking the **alert message** text navigates to the Alert page (keyboard-accessible: Enter/Space on the message)
 
-### Files Modified
-- frontend/src/App.js
-- frontend/src/components/home.js
-- frontend/src/components/alert.js
-- CHANGELOG.md
+## 13:30
 
-### Issues Faced
-- None
+### 🚀 Features Added
+- Set up Django backend project structure  
+- Created `api` app for handling authentication and risk APIs  
+- Configured project routing (`urls.py`)  
+- Initialized SQLite database  
+- Implemented basic login and register API endpoints  
+
+### 📁 Files Modified
+- backend/project/manage.py  
+- backend/project/project/settings.py  
+- backend/project/project/urls.py  
+- backend/project/api/models.py  
+- backend/project/api/views.py  
+- backend/project/api/urls.py  
+
+### ⚠️ Issues Faced
+- Path issues with `manage.py` → resolved by navigating to correct directory  
+- Incorrect command usage (`cd python manage.py`) → corrected  
