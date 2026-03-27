@@ -247,8 +247,27 @@ export default function ClimateaiHome() {
                                         {DASHBOARD_DATA.warningMessage}
                                     </p>
                                 </button>
+
+                                <button
+                                    className="feat-card"
+                                    onClick={() => navigate("/survey")}
+                                    style={panelButtonStyle}
+                                >
+                                    <h2 style={{
+                                        fontFamily: "'DM Serif Display', serif",
+                                        color: T.primary,
+                                        marginBottom: 6,
+                                        fontSize: "1.2rem",
+                                    }}>
+                                        Survey
+                                    </h2>
+                                    <p style={{ color: T.muted }}>
+                                        Share your environmental observations
+                                    </p>
+                                </button>
                             </div>
                         </div>
+
 
                     </div>
                 </main>
