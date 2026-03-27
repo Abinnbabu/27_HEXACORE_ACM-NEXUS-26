@@ -64,3 +64,29 @@
 ### ⚠️ Issues Faced
 - Path issues with `manage.py` → resolved by navigating to correct directory  
 - Incorrect command usage (`cd python manage.py`) → corrected  
+
+
+## 00:58
+
+### 🚀 Features Added
+- Redesigned home **environmental dashboard**: main **current location** panel with live **OpenStreetMap** embed, sidebar tiles for **AQI**, **Alert**, **Warnings**, and **Survey**
+- **Geolocation** in the browser: coordinates sent to the backend; **reverse geocoding** (Nominatim) returns a place label and **map embed URL** for the home map area
+- New Django endpoint **`GET /api/location/`** (`map_location.py`) for latitude/longitude → `display_name`, `map_embed_url`, attribution
+- **Risk / AQI** panel data from existing **`GET /api/risk/`** integration on the home screen
+- **Alert** and **Survey** routes: `/alert` and `/survey`; on home, the **alert message** text opens the Alert screen (keyboard-accessible)
+- Development **`ALLOWED_HOSTS`** updated for `localhost` / `127.0.0.1`
+
+### 📁 Files Modified
+- frontend/src/components/home.js  
+- frontend/src/components/alert.js  
+- frontend/src/components/survey.js  
+- frontend/src/App.js  
+- frontend/src/api.js  
+- backend/project/api/map_location.py *(new)*  
+- backend/project/api/urls.py  
+- backend/project/project/settings.py  
+- CHANGELOG.md  
+
+### ⚠️ Issues Faced
+- Map and place lookup depend on **network access** from the Django server to Nominatim and on the user **allowing location** in the browser  
+- Nominatim has **rate limits** and usage policy constraints suitable for demos, not heavy production load without caching or another provider  
