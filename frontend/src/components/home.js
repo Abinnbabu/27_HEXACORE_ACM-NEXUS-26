@@ -1,7 +1,7 @@
 import { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { ThemeContext } from "../App";
-import { getRisk } from "../api";
+import { getRisk, getLocationMap } from "../api";
 
 /* ─── Theme (static, no switching) ───────────────── */
 const THEMES = {
@@ -94,6 +94,8 @@ export default function ClimateaiHome() {
     const { themeKey } = useContext(ThemeContext);
     const navigate = useNavigate();
     const [data, setData] = useState(null);
+    const [locationMap, setLocationMap] = useState(null);
+    const [locationError, setLocationError] = useState(null);
 
     useEffect(() => {
       const fetchData = async () => {
@@ -101,6 +103,30 @@ export default function ClimateaiHome() {
         setData(res);
       };
       fetchData();
+    }, []);
+
+    useEffect(() => {
+      if (!navigator.geolocation) {
+        setLocationError("Geolocation is not supported in this browser.");
+        return;
+      }
+
+      navigator.geolocation.getCurrentPosition(
+        async (pos) => {
+          const { latitude, longitude } = pos.coords;
+          try {
+            const loc = await getLocationMap(latitude, longitude);
+            setLocationMap(loc);
+            setLocationError(null);
+          } catch (e) {
+            setLocationError(e.message || "Could not resolve location.");
+          }
+        },
+        () => {
+          setLocationError("Location permission denied or unavailable.");
+        },
+        { enableHighAccuracy: true, timeout: 15000, maximumAge: 60000 }
+      );
     }, []);
 
     const T = THEMES[themeKey] || THEMES.blue;
@@ -173,21 +199,44 @@ export default function ClimateaiHome() {
                                 <div style={{
                                     flex: 1,
                                     display: "flex",
-                                    alignItems: "center",
+                                    flexDirection: "column",
+                                    alignItems: "stretch",
                                     justifyContent: "center",
                                     marginTop: 12,
                                     borderRadius: 14,
                                     border: `1px dashed ${T.subtle}`,
                                     background: T.card,
-                                    padding: 20,
-                                    textAlign: "center",
+                                    overflow: "hidden",
+                                    minHeight: 220,
                                 }}>
-                                    <p style={{
-                                        color: T.muted,
-                                        fontSize: "1rem",
-                                    }}>
-                                        {data ? data.location : "Loading..."}
-                                    </p>
+                                    {locationMap?.map_embed_url ? (
+                                      <iframe
+                                        title="Current location map"
+                                        src={locationMap.map_embed_url}
+                                        style={{
+                                          width: "100%",
+                                          flex: 1,
+                                          minHeight: 200,
+                                          border: "none",
+                                          display: "block",
+                                        }}
+                                        loading="lazy"
+                                        referrerPolicy="no-referrer-when-downgrade"
+                                      />
+                                    ) : (
+                                      <div style={{
+                                        padding: 20,
+                                        textAlign: "center",
+                                      }}>
+                                        <p style={{
+                                          color: T.muted,
+                                          fontSize: "1rem",
+                                        }}>
+                                          {locationError ||
+                                            (data?.location ? `Approximate area: ${data.location}` : "Detecting your location…")}
+                                        </p>
+                                      </div>
+                                    )}
                                 </div>
 
                                 <p style={{
@@ -203,9 +252,25 @@ export default function ClimateaiHome() {
                                 <p style={{
                                     color: T.muted,
                                     marginTop: 14,
-                                    fontSize: "0.9rem",
+                                    fontSize: "0.85rem",
+                                    lineHeight: 1.45,
                                 }}>
-                                    Location will be shown here after backend integration.
+                                    {locationMap?.display_name && (
+                                      <>
+                                        {locationMap.display_name}
+                                        {locationMap.osm_attribution && (
+                                          <span style={{ display: "block", marginTop: 6, fontSize: "0.78rem" }}>
+                                            {locationMap.osm_attribution}
+                                          </span>
+                                        )}
+                                      </>
+                                    )}
+                                    {!locationMap?.display_name && !locationError && (
+                                      "Allow location access to show your position on the map."
+                                    )}
+                                    {!locationMap?.display_name && locationError && (
+                                      "Enable location or check that the API server is running."
+                                    )}
                                 </p>
                             </div>
 
