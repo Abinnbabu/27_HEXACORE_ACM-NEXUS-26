@@ -1,1 +1,4 @@
-test.py
+tests/
+venv/
+test_weather.py
+migrate.py
