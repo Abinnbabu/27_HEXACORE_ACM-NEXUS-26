@@ -90,3 +90,28 @@
 ### ⚠️ Issues Faced
 - Map and place lookup depend on **network access** from the Django server to Nominatim and on the user **allowing location** in the browser  
 - Nominatim has **rate limits** and usage policy constraints suitable for demos, not heavy production load without caching or another provider  
+
+
+## 03:20
+
+### 🚀 Features Added
+- **Full Stack Migration**: Shifted from Django to a consolidated **Flask** backend with **MongoDB Atlas** for scalable hackathon data storage
+- **Twilio SMS Alerts**: Integrated Twilio API to dispatch real-time SMS warnings to users when Risk Factor exceeds safety thresholds
+- **Advanced Flood Prediction**: Integrated Open-Meteo Flood API to correlate river discharge with historical means for precision threat modeling
+- **Authority Hub**: Created a dedicated dashboard for emergency responders to visualize user hotspots and manage relief infrastructure
+- **Interactive Mapping**: Implemented Leaflet-based tools for authorities to drop pins for **Relief Camps** and **Safe Zones**
+- **Safety Survey System**: Enabled users to report real-time safety status ("Safe", "Needs Help", "Evacuating") directly to the authority dashboard
+- **Role-Based Access (RBAC)**: Implemented secure session-based authentication for Admin, Authority, and User levels
+
+### 📁 Files Modified
+- app.py *(Major Migration)*
+- maps.js *(New Leaflet Integration)*
+- admin.html / admin.js / admin.css
+- authority_dashboard.html
+- user_dashboard.html
+- app.css
+- CHANGELOG.md
+
+### ⚠️ Issues Faced
+- **Database Seed Consistency**: Initial MongoDB connection required careful logic to ensure admin credentials persisted correctly
+- **Twilio Geocoding**: Required standardizing phone number formats (+91 prefix) for reliable delivery in local testing
